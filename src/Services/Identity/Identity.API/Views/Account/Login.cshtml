@@ -1,0 +1,35 @@
+@model LoginViewModel
+
+<form asp-action="Login" method="post">
+    <input asp-for="ReturnUrl" type="hidden">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div>
+        <label>Username</label>
+        <input asp-for="Username">
+    </div>
+    <div>
+        <label>Password</label>
+        <input asp-for="Password" type="password">
+    </div>
+    <div>
+        <button type="submit">Sign in</button>
+    </div>
+    <a asp-controller="Account" asp-action="Register" asp-asp-route-returnUrl="@Model.ReturnUrl">Register</a>
+</form>
+
+<div>
+    <h2>External Account</h2>
+    <ul>
+        @foreach (var provider in Model.ExternalProviders)
+        {       
+            <li>
+                <a asp-controller="External" 
+                    asp-action="Challenge"
+                    asp-route-scheme="@provider.AuthenticationScheme"
+                    asp-route-returnUrl="@Model.ReturnUrl">
+                    @provider.DisplayName
+                </a>
+            </li>
+        }
+    </ul>
+</div>
