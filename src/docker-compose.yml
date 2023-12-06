@@ -1,0 +1,34 @@
+version: '3.4'
+
+services:
+  postgres:
+    container_name: universroom-dev-postgres
+    image: postgres:15.4
+    restart: always
+    environment:
+     - POSTGRES_USER=postgres
+     - POSTGRES_PASSWORD=0000
+    ports:
+      - "5432:5432"
+
+  rabbitmq:
+    container_name: universroom-dev-rabbitmq
+    image: rabbitmq:management
+    restart: always
+    environment:
+      RABBITMQ_DEFAULT_USER: admin
+      RABBITMQ_DEFAULT_PASS: 5807
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+
+  identity-api:
+    container_name: universroom-dev-identity-api
+    build:
+      context: .
+      dockerfile: Services\Identity\Identity.API\Dockerfile
+    depends_on:
+      - postgres
+    ports:
+      - "5041:80"
+      - "7223:443"

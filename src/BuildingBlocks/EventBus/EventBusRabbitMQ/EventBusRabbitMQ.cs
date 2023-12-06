@@ -19,7 +19,7 @@ namespace UniversRoom.BuildingBlocks.EventBusRabbitMQ;
 
 public class EventBusRabbitMQ : IEventBus, IDisposable
 {
-    const string BROKER_NAME = "eshop_event_bus";
+    const string BROKER_NAME = "universroom_event_bus";
 
     private static readonly JsonSerializerOptions s_indentedOptions = new() { WriteIndented = true };
     private static readonly JsonSerializerOptions s_caseInsensitiveOptions = new() { PropertyNameCaseInsensitive = true };
