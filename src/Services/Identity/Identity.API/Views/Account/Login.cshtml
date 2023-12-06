@@ -20,16 +20,8 @@
 <div>
     <h2>External Account</h2>
     <ul>
-        @foreach (var provider in Model.ExternalProviders)
-        {       
-            <li>
-                <a asp-controller="External" 
-                    asp-action="Challenge"
-                    asp-route-scheme="@provider.AuthenticationScheme"
-                    asp-route-returnUrl="@Model.ReturnUrl">
-                    @provider.DisplayName
-                </a>
-            </li>
-        }
+        <li>
+            <a asp-controller="External" asp-action="Challenge" asp-route-scheme="Google" asp-route-returnUrl="@Model.ReturnUrl">Google</a>
+        </li>
     </ul>
 </div>

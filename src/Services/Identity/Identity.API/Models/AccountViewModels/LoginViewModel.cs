@@ -6,12 +6,11 @@ namespace UniversRoom.Services.Identity.API.Models.AccountViewModels;
 public class LoginViewModel
 {
     [Required]
-    public string Username { get; set; }
+    public  string Username { get; set; }
 
     [DataType(DataType.Password)]
     [Required]
-    public string Password { get; set; }
+    public  string Password { get; set; }
     
     public string? ReturnUrl { get; set; }
-    public IEnumerable<ExternalProvider> ExternalProviders { get; internal set; }
 }

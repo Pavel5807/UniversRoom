@@ -28,6 +28,7 @@ public class AccountController : Controller
     }
 
     [HttpGet]
+    [AllowAnonymous]
     public async Task<IActionResult> Login(string? returnUrl)
     {
         var model = await BuildLoginViewModel(returnUrl);
@@ -36,6 +37,7 @@ public class AccountController : Controller
     }
 
     [HttpPost]
+    [AllowAnonymous]
     public async Task<IActionResult> Login(LoginViewModel model)
     {
         if (ModelState.IsValid is false)
@@ -61,6 +63,7 @@ public class AccountController : Controller
     }
 
     [HttpGet]
+    [AllowAnonymous]
     public IActionResult Register(string? returnUrl)
     {
         var model = new RegisterViewModel()
@@ -72,6 +75,7 @@ public class AccountController : Controller
     }
 
     [HttpPost]
+    [AllowAnonymous]
     public async Task<IActionResult> Register(RegisterViewModel model)
     {
         if (ModelState.IsValid is false)
@@ -98,6 +102,7 @@ public class AccountController : Controller
     }
 
     [HttpGet]
+    [Authorize]
     public async Task<IActionResult> LogoutAsync(string logoutId)
     {
         await _signInManager.SignOutAsync();
@@ -111,25 +116,9 @@ public class AccountController : Controller
 
         var schemes = await _schemeProvider.GetAllSchemesAsync();
 
-        var providers = schemes.Where(x => x.DisplayName is not null)
-        .Select(x => new ExternalProvider
-        {
-            DisplayName = x.DisplayName ?? x.Name,
-            AuthenticationScheme = x.Name,
-        }).ToList();
-
         return new LoginViewModel()
         {
             ReturnUrl = returnUrl,
-            ExternalProviders = providers
         };
     }
-
-
-}
-
-public class ExternalProvider
-{
-    public string DisplayName { get; set; }
-    public string AuthenticationScheme { get; set; }
 }
